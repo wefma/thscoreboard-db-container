@@ -1,0 +1,18 @@
+services:
+  thscoreboard:
+    container_name: thscoreboard-postgres
+    image: postgres:18.4-alpine3.22@sha256:774521500f4c22761b25a6bdb772a0a3c2e8dd32468210bdad9231c5752ea398
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: thscoreboard
+    volumes:
+      - postgres_table:/var/lib/postgresql
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+    ports:
+      - 5432:5432
+
+
+volumes:
+  postgres_table:
+    name: thscoreboard-postgres
